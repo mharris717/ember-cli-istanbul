@@ -32,3 +32,10 @@ test("eval smoke", function() {
   equal(obj.getNum(),14);
   equal(obj.getNumEval(),14);
 });
+
+asyncTest("wait here", function() {
+  setTimeout(function() {
+    QUnit.start();
+    equal(2,2);
+  },1);
+});

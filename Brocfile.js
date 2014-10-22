@@ -6,7 +6,7 @@ var EmberAddon = require('ember-cli/lib/broccoli/ember-addon');
 // IstanbulMain.sayHello()
 
 var Istanbul = require('istanbul')
-var instrumenter = new Istanbul.Instrumenter({noCompact: true})
+var instrumenter = new Istanbul.Instrumenter({noCompact: true, embedSource: true})
 
 var beforeFunc = function(string,ops) {
   //console.log("sourceFile: " + ops.sourceFile)
@@ -15,7 +15,8 @@ var beforeFunc = function(string,ops) {
   var res = string;
 
   if (ops.moduleName == "dummy/models/doubler") {
-    res = instrumenter.instrumentSync(string, "/code/orig/ember-cli-istanbul/big.js");
+    res = instrumenter.instrumentSync(string, "/code/orig/ember-cli-istanbul/transpiled_js/dummy/models/doubler.js");
+    // res = instrumenter.instrumentSync(string, "/code/orig/ember-cli-istanbul/big.js");
     //res = instrumenter.instrumentSync(string, "/code/orig/ember-cli-istanbul/tests/dummy/app/models/doubler.js");
     res = res.replace("Function(\'return this\')","Function(\'return thisBeforeEval\')");
   }
