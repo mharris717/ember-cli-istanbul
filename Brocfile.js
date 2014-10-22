@@ -6,15 +6,20 @@ var EmberAddon = require('ember-cli/lib/broccoli/ember-addon');
 // IstanbulMain.sayHello()
 
 var Istanbul = require('istanbul')
-var instrumenter = new Istanbul.Instrumenter()
+var instrumenter = new Istanbul.Instrumenter({noCompact: true})
 
-var beforeFunc = function(string) {
-  console.log("beforeOutputPushFunc from brocfile");
-  return instrumenter.instrumentSync(string, 'filename.js');
+var beforeFunc = function(string,ops) {
+  //console.log("sourceFile: " + ops.sourceFile)
+  //console.log("beforeOutputPushFunc from brocfile");
+  var res = instrumenter.instrumentSync(string, ops.moduleName);
+
+  res = res.replace("Function(\'return this\')","Function(\'return thisBeforeEval\')");
+  //res = res.replace("Function(\'return this\')","Function(\'return window\')");
+  return res;
 };
 
 var app = new EmberAddon({
-  beforeOutputPfushFunc: beforeFunc,
+  beforeOutputPushFunc: beforeFunc,
   wrapInEvdal: false
 });
 

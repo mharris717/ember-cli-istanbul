@@ -10,7 +10,7 @@ test("smoke", function() {
 });
 
 function TestObj(inputTree, options) {
-  console.log("here");
+  //console.log("here");
 }
 
 //TestObj.prototype = Object.create()
