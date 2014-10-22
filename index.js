@@ -15,5 +15,9 @@ module.exports = {
     this.app = app;
     var plugin = new IstanbulPreprocessor({});
     this.app.registry.add('js', plugin);
+  },
+
+  sayHello: function() {
+    console.log("hello");
   }
 }

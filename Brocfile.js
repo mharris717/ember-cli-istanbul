@@ -2,11 +2,20 @@
 
 var EmberAddon = require('ember-cli/lib/broccoli/ember-addon');
 
+// var IstanbulMain = require('./index')
+// IstanbulMain.sayHello()
+
+var Istanbul = require('istanbul')
+var instrumenter = new Istanbul.Instrumenter()
+
+var beforeFunc = function(string) {
+  console.log("beforeOutputPushFunc from brocfile");
+  return instrumenter.instrumentSync(string, 'filename.js');
+};
+
 var app = new EmberAddon({
-  beforeOutputPushFunc: function(res) {
-    console.log("beforeOutputPushFunc from brocfile");
-    return res;
-  }
+  beforeOutputPfushFunc: beforeFunc,
+  wrapInEvdal: false
 });
 
 // Use `app.import` to add additional libraries to the generated
