@@ -11,9 +11,17 @@ var instrumenter = new Istanbul.Instrumenter({noCompact: true})
 var beforeFunc = function(string,ops) {
   //console.log("sourceFile: " + ops.sourceFile)
   //console.log("beforeOutputPushFunc from brocfile");
-  var res = instrumenter.instrumentSync(string, ops.moduleName);
 
-  res = res.replace("Function(\'return this\')","Function(\'return thisBeforeEval\')");
+  var res = string;
+
+  if (ops.moduleName == "dummy/models/doubler") {
+    res = instrumenter.instrumentSync(string, "/code/orig/ember-cli-istanbul/big.js");
+    //res = instrumenter.instrumentSync(string, "/code/orig/ember-cli-istanbul/tests/dummy/app/models/doubler.js");
+    res = res.replace("Function(\'return this\')","Function(\'return thisBeforeEval\')");
+  }
+  
+
+  
   //res = res.replace("Function(\'return this\')","Function(\'return window\')");
   return res;
 };

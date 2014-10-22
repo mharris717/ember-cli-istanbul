@@ -40,6 +40,18 @@
     <script src="assets/test-support.js"></script>
     <script src="assets/dummy.js"></script>
     <script src="testem.js"></script>
+
+    <script>
+    Testem.on('all-test-results', function(results){
+      console.log("Inside all-test-results");
+      var xhr = new XMLHttpRequest()
+      xhr.open('POST', 'http://localhost:7358/')
+      xhr.send(JSON.stringify(window.__coverage__))
+      //xhr.send(JSON.stringify(window.coverage))
+      console.log("end all-test-results");
+    })
+    </script>
+    
     <script src="assets/test-loader.js"></script>
   </body>
 </html>
