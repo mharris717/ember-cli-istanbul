@@ -2,7 +2,12 @@
 
 var EmberAddon = require('ember-cli/lib/broccoli/ember-addon');
 
-var app = new EmberAddon();
+var app = new EmberAddon({
+  beforeOutputPushFunc: function(res) {
+    console.log("beforeOutputPushFunc from brocfile");
+    return res;
+  }
+});
 
 // Use `app.import` to add additional libraries to the generated
 // output files.
