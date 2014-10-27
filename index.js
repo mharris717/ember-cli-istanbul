@@ -7,22 +7,56 @@
 
 // var IstanbulPreprocessor = require("./lib/istanbul-preprocessor")
 
+var path = require("path")
+
 var sup = {
-  name: "sup",
+  name: "eci:hello",
 
   run: function() {
-    console.log("hello");
-    return 14;
+    console.log("hello from ember-cli-istanbul")
   }
 };
 
 var runCoverage = {
-  name: "istanbul:coverage_server",
+  name: "istanbul:coverage-server",
 
   run: function() {
-    require("./lib/coverage_server")
+    // var file = "./lib/coverage_server";
+    // var fullFile = path.resolve(file);
+    // console.log("node " + fullFile + ".js")
+    // require(file)
+    //console.log("running")
+
+    var root = path.resolve(".")
+    var file = root + "/node_modules/ember-cli-istanbul/lib/coverage_server.js"
+    console.log("Run this: node " + file)
   }
 };
+
+// var shellTest = {
+//   name: "shell-test",
+
+//   run: function() {
+//     var sys = require('sys')
+//     var exec = require('child_process').exec;
+//     function puts(error, stdout, stderr) { sys.puts(stdout) }
+//     exec("ls -la", puts);
+//   }
+// }
+
+// function EmberCliIstanbul(proj) {
+//   this.name = "ember-cli-istanbul";
+//   this.appName = proj.name();
+// }
+
+// EmberCliIstanbul.prototype.included = function(app) {
+//   console.log("in eci included");
+//   var beforeFunc = require("./lib/istanbul-concat-filter");
+//   app.options.beforeOutputPushFunc = beforeFunc(app.name);
+// }
+
+// module.exports = EmberCliIstanbul
+
 
 module.exports = {
   name: "ember-cli-istanbul",
@@ -35,8 +69,9 @@ module.exports = {
   // },
 
   included: function(app) {
+    console.log("in eci included");
     var beforeFunc = require("./lib/istanbul-concat-filter");
-    app.options.beforeOutputPushFunc = beforeFunc;
+    app.options.beforeOutputPushFunc = beforeFunc(app.name);
   },
 
   includedCommands: function() {
