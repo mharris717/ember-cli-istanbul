@@ -32,7 +32,8 @@
     "broccoli-filter": "",
     "istanbul": "gotwarlost/istanbul#harmony",
     "ember-cli-coffeescript": "",
-    "broccoli-es6-concatenator": "0.1.7"
+    "broccoli-es6-concatenator": "0.1.7",
+    "write-transpiled": ""
   },
   "keywords": [
     "ember-addon"
