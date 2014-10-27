@@ -20,7 +20,8 @@
   dependencies: {
     "istanbul": "gotwarlost/istanbul#harmony",
     "broccoli-es6-concatenator": "0.1.7"
-  }
+  },
+  
   "devDependencies": {
     "body-parser": "^1.2.0",
     "broccoli-asset-rev": "0.3.1",
